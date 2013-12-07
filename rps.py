@@ -1,10 +1,10 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import random
 
 
 def askUser():
-    answer = raw_input("Rock, Paper, Scissors? ")
+    answer = input("Rock, Paper, Scissors? ")
     return answer
 
 
@@ -13,7 +13,7 @@ def askForNumberOfGames():
     while answer == None:
         try:
             answer = int(
-                raw_input('How many number of games would you like to play? '))
+                input('How many number of games would you like to play? '))
         except ValueError:
             print('Not a valid number. Try again.')
 
@@ -90,9 +90,9 @@ while games > gamesPlayed:
                   % (userChoice, computerChoice, result))
             gamesPlayed += 1
 
-print
+print('')
 print('Player 1: %d %s.' % (player1Wins, oneOrSeveral(player1Wins, 'win')))
 print('Player 2: %d %s.' % (player2Wins, oneOrSeveral(player2Wins, 'win')))
 print('%d %s played.' % (gamesPlayed, oneOrSeveral(gamesPlayed, 'game')))
 print('%d %s.' % (ties, oneOrSeveral(ties, 'tie')))
-print
+print('')
