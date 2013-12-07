@@ -1,4 +1,4 @@
 Rock-Python-Scissors
 ====================
 
-ermagerd
+Probably the coolest repo ever. Words simply cannot describe it.
