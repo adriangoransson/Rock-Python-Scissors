@@ -4,11 +4,13 @@ import random
 
 
 def askUser():
+    """Promt user for a choice"""
     answer = input("Rock, Paper, Scissors? ")
     return answer
 
 
 def askForNumberOfGames():
+    """Ask for and validate user input saying how many games are to be played"""
     answer = None
     while answer == None:
         try:
@@ -21,6 +23,7 @@ def askForNumberOfGames():
 
 
 def validateAnswer(answer, options):
+    """Make sure that the answer is in supplied options dict or list"""
     if answer in options:
         return True
 
@@ -29,6 +32,7 @@ def validateAnswer(answer, options):
 
 
 def pickRandom(options):
+    """Choose a random key from options dict or list. If dict, extract keys"""
     options = list(options)
     choice = random.randint(0, (len(options) - 1))
 
@@ -36,6 +40,7 @@ def pickRandom(options):
 
 
 def determineWinner(player1, player2, options):
+    """Use options (must be a dictionary) to determine if player1 choice beats player2"""
     if player1 == player2:
         return 3
     elif options[player1] == player2:
@@ -45,6 +50,7 @@ def determineWinner(player1, player2, options):
 
 
 def oneOrSeveral(amount, word):
+    """Append an "s" to the end of word if amount is not 1"""
     if amount != 1:
         word += 's'
 
@@ -61,6 +67,9 @@ ties = 0
 player1Wins = 0
 player2Wins = 0
 
+# iterate over number of games chosen by user
+# if a player wins the round, increment gamesPlayed and playerXWins
+# else, increment ties
 while games > gamesPlayed:
     userChoice = askUser().strip().capitalize()
     computerChoice = pickRandom(options)
@@ -79,9 +88,10 @@ while games > gamesPlayed:
                   % (userChoice, computerChoice, result))
             gamesPlayed += 1
 
-print('')
+# make the end results look a bit nicer with empty lines above and below
+print()
 print('Player 1: %d %s.' % (player1Wins, oneOrSeveral(player1Wins, 'win')))
 print('Player 2: %d %s.' % (player2Wins, oneOrSeveral(player2Wins, 'win')))
 print('%d %s played.' % (gamesPlayed, oneOrSeveral(gamesPlayed, 'game')))
 print('%d %s.' % (ties, oneOrSeveral(ties, 'tie')))
-print('')
+print()
