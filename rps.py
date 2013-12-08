@@ -56,6 +56,7 @@ def oneOrSeveral(amount, word):
 
     return word
 
+
 def presentResults(player1Wins, player2Wins, gamesPlayed, ties, padding=False):
     """Present player wins, how many games have been played and the number of ties"""
     # Empty line above and below makes it look a bit nicer.
@@ -67,6 +68,7 @@ def presentResults(player1Wins, player2Wins, gamesPlayed, ties, padding=False):
     print('%d %s.' % (ties, oneOrSeveral(ties, 'tie')))
     if padding:
         print()
+
 
 def main():
     # options and what option they beat
