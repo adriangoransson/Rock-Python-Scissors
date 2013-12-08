@@ -21,7 +21,6 @@ def askForNumberOfGames():
 
 
 def validateAnswer(answer, options):
-    answer = answer.strip().capitalize()
     if answer in options:
         return True
 
@@ -30,29 +29,19 @@ def validateAnswer(answer, options):
 
 
 def pickRandom(options):
+    options = list(options)
     choice = random.randint(0, (len(options) - 1))
 
     return options[choice]
 
 
-def determineWinner(player1, player2):
+def determineWinner(player1, player2, options):
     if player1 == player2:
         return 3
-    elif player1 == 'Rock':
-        if player2 == 'Paper':
-            return 2
-        elif player2 == 'Scissors':
-            return 1
-    elif player1 == 'Paper':
-        if player2 == 'Rock':
-            return 1
-        elif player2 == 'Scissors':
-            return 2
-    elif player1 == 'Scissors':
-        if player2 == 'Rock':
-            return 2
-        elif player2 == 'Paper':
-            return 1
+    elif options[player1] == player2:
+        return 1
+    elif options[player2] == player1:
+        return 2
 
 
 def oneOrSeveral(amount, word):
@@ -61,8 +50,8 @@ def oneOrSeveral(amount, word):
 
     return word
 
-
-options = ['Rock', 'Paper', 'Scissors']
+# options and what option they beat
+options = {'Rock': 'Scissors', 'Paper': 'Rock', 'Scissors': 'Paper'}
 
 games = askForNumberOfGames()
 
@@ -73,11 +62,11 @@ player1Wins = 0
 player2Wins = 0
 
 while games > gamesPlayed:
-    userChoice = askUser().capitalize()
+    userChoice = askUser().strip().capitalize()
     computerChoice = pickRandom(options)
 
     if validateAnswer(userChoice, options):
-        result = determineWinner(userChoice, computerChoice)
+        result = determineWinner(userChoice, computerChoice, options)
         if result == 3:
             ties += 1
             print('%s - %s. Tie!' % (userChoice, computerChoice))
