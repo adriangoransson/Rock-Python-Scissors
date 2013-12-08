@@ -56,42 +56,54 @@ def oneOrSeveral(amount, word):
 
     return word
 
-# options and what option they beat
-options = {'Rock': 'Scissors', 'Paper': 'Rock', 'Scissors': 'Paper'}
+def presentResults(player1Wins, player2Wins, gamesPlayed, ties, padding=False):
+    """Present player wins, how many games have been played and the number of ties"""
+    # Empty line above and below makes it look a bit nicer.
+    if padding:
+        print()
+    print('Player 1: %d %s.' % (player1Wins, oneOrSeveral(player1Wins, 'win')))
+    print('Player 2: %d %s.' % (player2Wins, oneOrSeveral(player2Wins, 'win')))
+    print('%d %s played.' % (gamesPlayed, oneOrSeveral(gamesPlayed, 'game')))
+    print('%d %s.' % (ties, oneOrSeveral(ties, 'tie')))
+    if padding:
+        print()
 
-games = askForNumberOfGames()
+def main():
+    # options and what option they beat
+    options = {'Rock': 'Scissors', 'Paper': 'Rock', 'Scissors': 'Paper'}
 
-gamesPlayed = 0
-ties = 0
+    games = askForNumberOfGames()
 
-player1Wins = 0
-player2Wins = 0
+    gamesPlayed = 0
+    ties = 0
 
-# iterate over number of games chosen by user
-# if a player wins the round, increment gamesPlayed and playerXWins
-# else, increment ties
-while games > gamesPlayed:
-    userChoice = askUser().strip().capitalize()
-    computerChoice = pickRandom(options)
+    player1Wins = 0
+    player2Wins = 0
 
-    if validateAnswer(userChoice, options):
-        result = determineWinner(userChoice, computerChoice, options)
-        if result == 3:
-            ties += 1
-            print('%s - %s. Tie!' % (userChoice, computerChoice))
-        else:
-            if result == 1:
-                player1Wins += 1
-            elif result == 2:
-                player2Wins += 1
-            print('%s - %s. Player %d wins!'
-                  % (userChoice, computerChoice, result))
-            gamesPlayed += 1
+    # iterate over number of games chosen by user
+    # if a player wins the round, increment gamesPlayed and playerXWins
+    # else, increment ties
+    while games > gamesPlayed:
+        userChoice = askUser().strip().capitalize()
+        computerChoice = pickRandom(options)
 
-# make the end results look a bit nicer with empty lines above and below
-print()
-print('Player 1: %d %s.' % (player1Wins, oneOrSeveral(player1Wins, 'win')))
-print('Player 2: %d %s.' % (player2Wins, oneOrSeveral(player2Wins, 'win')))
-print('%d %s played.' % (gamesPlayed, oneOrSeveral(gamesPlayed, 'game')))
-print('%d %s.' % (ties, oneOrSeveral(ties, 'tie')))
-print()
+        if validateAnswer(userChoice, options):
+            result = determineWinner(userChoice, computerChoice, options)
+            if result == 3:
+                ties += 1
+                print('%s - %s. Tie!' % (userChoice, computerChoice))
+            else:
+                if result == 1:
+                    player1Wins += 1
+                elif result == 2:
+                    player2Wins += 1
+                print('%s - %s. Player %d wins!'
+                      % (userChoice, computerChoice, result))
+                gamesPlayed += 1
+
+    # present results with padding
+    presentResults(player1Wins, player2Wins, gamesPlayed, ties, True)
+
+# be nice, do not run if not explicitly told so
+if __name__ == '__main__':
+    main()
